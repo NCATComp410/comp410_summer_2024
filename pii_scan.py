@@ -1,4 +1,6 @@
 """PII Scan"""
+import uuid
+import os
 import spacy
 from presidio_analyzer import AnalyzerEngine, RecognizerRegistry
 from presidio_analyzer.predefined_recognizers import (ItDriverLicenseRecognizer,
@@ -35,9 +37,14 @@ analyzer = AnalyzerEngine(registry=registry)
 anonymizer = AnonymizerEngine()
 
 
-def show_aggie_pride():
+def show_aggie_pride() -> str:
     """Show Aggie Pride"""
     return "Aggie Pride - Worldwide"
+
+
+def generate_uuid():
+    """Generate a UUID"""
+    return uuid.uuid4()
 
 
 def anonymize_text(text: str, entity_list: list) -> str:
@@ -59,4 +66,10 @@ def anonymize_text(text: str, entity_list: list) -> str:
 
 
 if __name__ == '__main__':
-    show_aggie_pride()
+    print(show_aggie_pride())
+    print('-----------------')
+    print('Sample text: I live in New York')
+    print('Anonymized text:', anonymize_text('I live in New York', ['LOCATION']))
+    print('-----------------')
+    print('UUID: ', generate_uuid())
+    print('CODESPACE_NAME:', os.getenv('CODESPACE_NAME'))
