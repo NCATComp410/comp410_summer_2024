@@ -43,3 +43,11 @@ class TestTeamNull(unittest.TestCase):
         self.assertEqual(expected_result,
                          actual_result)
         
+        # negative test case - too long
+        test_ssn = '1234567890'
+        test_string = 'My ssn is ' + test_ssn
+        expected_result = 'My ssn is 1234567890'
+        actual_result = anonymize_text(test_string, ['US_SSN'])
+        self.assertEqual(expected_result,
+                         actual_result)
+        
