@@ -16,3 +16,21 @@ class TestTeamAIAggies(unittest.TestCase):
 
         self.assertEqual('My NRP is Unknown',
                          anonymize_text('My NRP is Unknown', ['NRP']))
+        
+    def test_location(self):
+        """Test to make sure that a LOCATION  is recognized"""
+        #positive test case
+        test_location = 'Greensboro'
+        test_string = 'My location is ' + test_location
+        expected_result = 'My location is <LOCATION>'
+        actual_result = anonymize_text(test_string, ['LOCATION'])
+        self.assertEqual(expected_result,
+                         actual_result)
+
+        #negative test case - Candy is not a location
+        test_location = 'Candy'
+        test_string = 'My location is ' + test_location
+        expected_result = 'My location is Candy'
+        actual_result = anonymize_text(test_string, ['LOCATION'])
+        self.assertEqual(expected_result,
+                         actual_result)
