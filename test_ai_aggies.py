@@ -1,4 +1,4 @@
-""""Tests for Team AI Aggies"""
+"""Tests for Team AI Aggies"""
 import unittest
 from pii_scan import show_aggie_pride, anonymize_text
 
@@ -15,6 +15,7 @@ class TestTeamAIAggies(unittest.TestCase):
 
         self.assertEqual('My NRP is Unknown',
                          anonymize_text('My NRP is Unknown', ['NRP']))
+   
     def test_person(self):
         """Test to ensure a Person is recognized and anonymized correctly"""
         # Positive test case - Person should be anonymized
