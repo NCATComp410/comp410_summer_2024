@@ -15,7 +15,7 @@ class TestTeamAIAggies(unittest.TestCase):
 
         self.assertEqual('My NRP is Unknown',
                          anonymize_text('My NRP is Unknown', ['NRP']))
-   
+
     def test_person(self):
         """Test to ensure a Person is recognized and anonymized correctly"""
         # Positive test case - Person should be anonymized
@@ -25,7 +25,7 @@ class TestTeamAIAggies(unittest.TestCase):
         actual_result = anonymize_text(test_string, ['PERSON'])
         self.assertEqual(expected_result,
                         actual_result)
-        
+
         # Negative test case - Person should not be anonymized if not in the list
         test_person = 'Bobby'
         test_string = 'My name is ' + test_person
