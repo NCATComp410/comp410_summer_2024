@@ -26,15 +26,15 @@ class TestTeamAIAggies(unittest.TestCase):
         self.assertEqual(expected_result,
                         actual_result)
 
-        # Negative test case - Person should not be anonymized if not in the list
-        test_person = 'Bobby'
+        # Positive test case - Person should be anonymized
+        test_person = 'Mansa Musa'
         test_string = 'My name is ' + test_person
         expected_result = 'My name is <PERSON>'
         actual_result = anonymize_text(test_string, ['PERSON'])
         self.assertEqual(expected_result,
                          actual_result)
 
-        # Additional negative test case - Different person name not anonymized
+        # Negative test case - number/name not anonymized
         test_person = '12345'
         test_string = 'My name is ' + test_person
         expected_result = 'My name is 12345'
