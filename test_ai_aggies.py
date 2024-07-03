@@ -15,7 +15,6 @@ class TestTeamAIAggies(unittest.TestCase):
 
         self.assertEqual('My NRP is Unknown',
                          anonymize_text('My NRP is Unknown', ['NRP']))
-6-detecting-location-though-gps-and-indirect-sources
         
     def test_location(self):
         """Test to make sure that a LOCATION  is recognized"""
