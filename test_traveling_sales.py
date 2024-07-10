@@ -35,6 +35,14 @@ class TestTeamTravelingSalesmen(unittest.TestCase):
         self.assertEqual(expected_result,
                          actual_result)
         
+        # negative test case "Too short"
+        test_medicare = '38884 87868 0'
+        test_string = 'My medicare number is ' + test_medicare
+        expected_result = 'My medicare number is 38884 87868 0'
+        actual_result = anonymize_text(test_string, ['AU_MEDICARE'])
+        self.assertEqual(expected_result,
+                         actual_result)
+        
         #positive test case "medium"
         start = '3111 '
         middle = '32311 '
