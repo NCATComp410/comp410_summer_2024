@@ -16,3 +16,12 @@ class TestTeam3(unittest.TestCase):
 
         self.assertEqual('My NRP is Unknown',
                          anonymize_text('My NRP is Unknown', ['NRP']))
+       
+    def test_credit_card(self):
+        """Test to make sure CREDIT_CARD is recognized"""
+        test_cc = '4012 9450 3454 5464'
+        test_string = 'My credit card number is ' + test_cc
+        expected_result = 'My credit card number is <CREDIT_CARD>'
+        actual_result = anonymize_text(test_string, ['CREDIT_CARD'])
+        self.assertEqual(expected_result,
+                         actual_result) 
