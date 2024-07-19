@@ -43,5 +43,13 @@ class TestTeamNull(unittest.TestCase):
         self.assertEqual(expected_result,
                          actual_result)
         
+        # negative test case - too long
+        test_dl = '123456789101213'
+        test_string = 'My driver license is ' + test_dl
+        expected_result = 'My driver license is 123456789101213'
+        actual_result = anonymize_text(test_string, ['US_DRIVER_LICENSE'])
+        self.assertEqual(expected_result,
+                         actual_result)
+        
         
         
