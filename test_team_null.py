@@ -49,4 +49,3 @@ class TestTeamNull(unittest.TestCase):
         expected_result = 'My ssn is 1234567890'
         actual_result = anonymize_text(test_string, ['US_SSN'])
         self.assertEqual(expected_result,
-                         actual_result)

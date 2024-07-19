@@ -60,3 +60,60 @@ class TestTeamAIAggies(unittest.TestCase):
         self.assertEqual(expected_result,
                          actual_result)
 
+    def test_US_BANK_NUMBER(self):
+        """test to make sure bank account is required"""
+        # Positive test case - Account length is greater than 8 and less than 17
+        test_account = "123456789"
+        test_string = "My account number is " + test_account
+        expected_result = "My account number is <US_BANK_NUMBER>"
+        actual_result = anonymize_text(test_string, ["US_BANK_NUMBER"])
+        self.assertEqual(expected_result,
+                         actual_result)
+
+        # Negative test case - Account length is less than 8
+        test_account = "1234567"
+        test_string = "My account number is " + test_account
+        expected_result = "My account number is 1234567"
+        actual_result = anonymize_text(test_string, ["US_BANK_NUMBER"])
+        self.assertEqual(expected_result,
+                         actual_result)
+          
+    def test_phone_number(self):
+        """Test to make sure a PHONE_NUMBER is recognized"""
+        # Positve test case - Correct phone number format
+        prefix = '(336)'
+        mid = '-555-'
+        ending = '1234'
+        test_phonenum = prefix + mid + ending
+        test_string = 'My phone number is ' + test_phonenum
+        expected_result = 'My phone number is <PHONE_NUMBER>'
+        actual_result =  anonymize_text(test_string, ['PHONE_NUMBER'])
+        self.assertEqual(expected_result,
+                         actual_result)
+
+        # Negative test case - Area code is not present
+        test_phonenum = '5551234'
+        test_string = 'My phone number is ' + test_phonenum
+        expected_result = 'My phone number is 5551234'
+        actual_result =  anonymize_text(test_string, ['PHONE_NUMBER'])
+        self.assertEqual(expected_result,
+                         actual_result)
+
+    def test_URL(self):
+        '''Test to make sure URL is valid'''
+        #Positive test case - URL is validated
+        test_URL = 'www.SaintBaroque.com'
+        test_string_URL = 'My URL is: ' + test_URL
+        expected_result_URL = 'My URL is: <URL>'
+        result = anonymize_text(test_string_URL, ['URL'])
+        self.assertEqual(expected_result_URL, result)
+
+        #Negative test case - URL is invalid 
+        test_URL = 'SaintBaroque'
+        test_string_URL = 'My URL is: ' + test_URL
+        expected_result_URL = 'My URL is: SaintBaroque'
+        result = anonymize_text(test_string_URL, ['URL'])
+        self.assertEqual(expected_result_URL, result)
+
+        
+
