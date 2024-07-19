@@ -15,8 +15,8 @@ class TestTeam3(unittest.TestCase):
                          anonymize_text('My nationality is American', ['NRP']))
 
         self.assertEqual('My NRP is Unknown',
- 15-detect-credit_card
                          anonymize_text('My NRP is Unknown', ['NRP']))
+                        
        
     def test_credit_card(self):
         """Test to make sure CREDIT_CARD is recognized"""
@@ -59,9 +59,7 @@ class TestTeam3(unittest.TestCase):
         actual_result = anonymize_text(test_string, ['CREDIT_CARD'])
         self.assertEqual(expected_result,actual_result)
 
-    
-                         anonymize_text('My NRP is Unknown', ['NRP']))   
-    
+        
     def test_crypto(self):
         """Test to make sure a Crypto is recognized and anonymized"""
         
