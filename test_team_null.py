@@ -50,4 +50,40 @@ class TestTeamNull(unittest.TestCase):
         actual_result = anonymize_text(test_string, ['US_SSN'])
         self.assertEqual(expected_result,
                          actual_result)
+ 
+    def test_us_itin(self):
+        """Test to make sure a US_SSN is recognized"""
+        # positive test case
+        prefix = '123'
+        mid = '-12-'
+        ending = '1234'
+        test_itin = prefix + mid + ending
+        test_string = 'My ITIN is ' + test_itin
+        expected_result = 'My ITIN is <US_ITIN>'
+        actual_result = anonymize_text(test_string, ['US_ITIN'])
+        self.assertEqual(expected_result,
+                         actual_result)
         
+        # negative test case - US_ITIN is not replaced
+        test_itin = '123456789'
+        test_string = 'My ITIN is ' + test_itin
+        expected_result = 'My ITIN is 123456789'
+        actual_result = anonymize_text(test_string, ['US_ITIN'])
+        self.assertEqual(expected_result,
+                         actual_result)
+        
+        # negative test case - too short
+        test_itin = '12345678'
+        test_string = 'My ITIN is ' + test_itin
+        expected_result = 'My ITIN is 12345678'
+        actual_result = anonymize_text(test_string, ['US_ITIN'])
+        self.assertEqual(expected_result,
+                         actual_result)
+        
+        # negative test case - too long
+        test_itin = '1234567890'
+        test_string = 'My ITIN is ' + test_itin
+        expected_result = 'My ITIN is 1234567890'
+        actual_result = anonymize_text(test_string, ['US_ITIN'])
+        self.assertEqual(expected_result,
+                         actual_result)
