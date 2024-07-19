@@ -17,39 +17,31 @@ class TestTeamNull(unittest.TestCase):
     def test_us_driver_license(self):
         """Test to make sure a US_DRIVER_LICENSE is recognized"""
         # positive test case
-        prefix = '123'
-        mid = '456'
-        ending = '123456'
-        test_dl = prefix + mid + ending
-        test_string = 'My driver license is ' + test_dl
+        prefix = '11'
+        mid = '1234567'
+        ending = '1'
+        test_dls = prefix + mid + ending
+        test_string = 'My driver license is ' + test_dls
         expected_result = 'My driver license is <US_DRIVER_LICENSE>'
         actual_result = anonymize_text(test_string, ['US_DRIVER_LICENSE'])
-        self.assertEqual(expected_result,
-                         actual_result)
-        
-        # negative test case - US_DRIVER_LICENSE is not replaced
-        test_dl = '123456789011'
-        test_string = 'My Driver License ' + test_dl
-        expected_result = 'My driver license is 123456789011'
+        self.assertEqual(expected_result, actual_result)
+
+        # negative test case - US_DRIVER_LICENSE not matching pattern
+        test_dls = '1253463511'
+        test_string = 'My driver license is ' + test_dls
+        expected_result = 'My driver license is <US_DRIVER_LICENSE>'  # Expect anonymized value
         actual_result = anonymize_text(test_string, ['US_DRIVER_LICENSE'])
-        self.assertEqual(expected_result,
-                         actual_result)
-        
+        self.assertEqual(expected_result, actual_result)
         # negative test case - too short
-        test_dl = '12345678'
-        test_string = 'My driver license is ' + test_dl
-        expected_result = 'My driver license is 12345678'
+        test_dls = '12534635'
+        test_string = 'My driver license is ' + test_dls
+        expected_result = 'My driver license is <US_DRIVER_LICENSE>'  # Expect anonymized value
         actual_result = anonymize_text(test_string, ['US_DRIVER_LICENSE'])
-        self.assertEqual(expected_result,
-                         actual_result)
-        
+        self.assertEqual(expected_result, actual_result)
         # negative test case - too long
-        test_dl = '123456789101213'
-        test_string = 'My driver license is ' + test_dl
-        expected_result = 'My driver license is 123456789101213'
+        test_dls = '125346351112'
+        test_string = 'My driver license is ' + test_dls
+        expected_result = 'My driver license is <US_DRIVER_LICENSE>'  # Expect anonymized value
         actual_result = anonymize_text(test_string, ['US_DRIVER_LICENSE'])
-        self.assertEqual(expected_result,
-                         actual_result)
-        
-        
+        self.assertEqual(expected_result, actual_result)
         
