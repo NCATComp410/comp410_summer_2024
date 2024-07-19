@@ -16,3 +16,33 @@ class TestTeamTravelingSalesmen(unittest.TestCase):
 
         self.assertEqual('My NRP is Unknown',
                          anonymize_text('My NRP is Unknown', ['NRP']))
+        
+    def test_uk_nhs (self):
+
+        """Test to make sure NHS is recognized"""
+
+        # negative test case - too short
+        test_nhs = '123 456 789'
+        test_string = 'My nhs is ' + test_nhs
+        expected_result = 'My nhs is 123 456 789'
+        actual_result = anonymize_text(test_string, ['UK_NHS'])
+        self.assertEqual(expected_result,
+                          actual_result)
+
+        # negative test case - too long
+        test_nhs = '123 456 789123'
+        test_string = 'My nhs is ' + test_nhs
+        expected_result = 'My nhs is 123 456 789123'
+        actual_result = anonymize_text(test_string, ['UK_NHS'])
+        self.assertEqual(expected_result,
+                         actual_result)
+        # positive test case
+        prefix = '123 '
+        mid= '456 '
+        ending = '7829'
+        test_nhs = prefix + mid + ending
+        test_string = 'My nhs is ' + test_nhs
+        expected_result = 'My nhs is 123 456 7829'
+        actual_result = anonymize_text(test_string, ['UK_NHS'])
+        self.assertEqual(expected_result,
+                         actual_result)      
