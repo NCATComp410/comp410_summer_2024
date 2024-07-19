@@ -87,11 +87,10 @@ class TestTeamAIAggies(unittest.TestCase):
         result = anonymize_text(test_string_URL, ['URL'])
         self.assertEqual(expected_result_URL, result)
 
-        '''Test to make sure URL is valid'''
         #Negative test case - URL is invalid 
-        test_URL = 'ww.SaintBaroque.gov'
+        test_URL = 'SaintBaroque'
         test_string_URL = 'My URL is: ' + test_URL
-        expected_result_URL = 'My URL is: <URL>'
+        expected_result_URL = 'My URL is: SaintBaroque'
         result = anonymize_text(test_string_URL, ['URL'])
         self.assertEqual(expected_result_URL, result)
 
