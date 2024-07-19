@@ -114,6 +114,18 @@ class TestTeamAIAggies(unittest.TestCase):
         expected_result_URL = 'My URL is: SaintBaroque'
         result = anonymize_text(test_string_URL, ['URL'])
         self.assertEqual(expected_result_URL, result)
-
+def test_medical_license(self):
+        # Test case where Medical License PII is present(positive)
+        test_med = "The physician's Medical License: 1234567890 is valid."
+        expected_result = 'The doctor\'s <MedicalLicense> is valid.'
+        result = anonymize_text(test_med, ['MedicalLicense'])
+        self.assertEqual(expected_result, result)
+        
+def test_negative_detection(self):
+        # Test case where Medical License PII is not present
+        test_med = 'This doctor has all the necessary qualifications.'
+        expected_result = 'This doctor has all the necessary qualifications.'
+        result = anonymize_text(test_med, ['MedicalLicense'])
+        self.assertEqual(expected_result, result)
         
 
