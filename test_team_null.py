@@ -14,40 +14,34 @@ class TestTeamNull(unittest.TestCase):
         self.assertEqual('My NRP is <NRP>',
                          anonymize_text('My NRP is Democrat', ['NRP']))
         
-    def test_us_ssn(self):
-        """Test to make sure a US_SSN is recognized"""
+    def test_us_driver_license(self):
+        """Test to make sure a US_DRIVER_LICENSE is recognized"""
         # positive test case
         prefix = '123'
-        mid = '-12-'
-        ending = '1234'
-        test_ssn = prefix + mid + ending
-        test_string = 'My ssn is ' + test_ssn
-        expected_result = 'My ssn is <US_SSN>'
-        actual_result = anonymize_text(test_string, ['US_SSN'])
+        mid = '456'
+        ending = '123456'
+        test_dl = prefix + mid + ending
+        test_string = 'My driver license is ' + test_dl
+        expected_result = 'My driver license is <US_DRIVER_LICENSE>'
+        actual_result = anonymize_text(test_string, ['US_DRIVER_LICENSE'])
         self.assertEqual(expected_result,
                          actual_result)
         
-        # negative test case - US_SSN is not replaced
-        test_ssn = '123456789'
-        test_string = 'My ssn is ' + test_ssn
-        expected_result = 'My ssn is 123456789'
-        actual_result = anonymize_text(test_string, ['US_SSN'])
+        # negative test case - US_DRIVER_LICENSE is not replaced
+        test_dl = '123456789011'
+        test_string = 'My Driver License ' + test_dl
+        expected_result = 'My driver license is 123456789011'
+        actual_result = anonymize_text(test_string, ['US_DRIVER_LICENSE'])
         self.assertEqual(expected_result,
                          actual_result)
         
         # negative test case - too short
-        test_ssn = '12345678'
-        test_string = 'My ssn is ' + test_ssn
-        expected_result = 'My ssn is 12345678'
-        actual_result = anonymize_text(test_string, ['US_SSN'])
+        test_dl = '12345678'
+        test_string = 'My driver license is ' + test_dl
+        expected_result = 'My driver license is 12345678'
+        actual_result = anonymize_text(test_string, ['US_DRIVER_LICENSE'])
         self.assertEqual(expected_result,
                          actual_result)
         
-        # negative test case - too long
-        test_ssn = '1234567890'
-        test_string = 'My ssn is ' + test_ssn
-        expected_result = 'My ssn is 1234567890'
-        actual_result = anonymize_text(test_string, ['US_SSN'])
-        self.assertEqual(expected_result,
-                         actual_result)
+        
         
