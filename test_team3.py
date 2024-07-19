@@ -45,3 +45,11 @@ class TestTeam3(unittest.TestCase):
             actual_result = anonymize_text(test_string, ['DATE_TIME'])
             self.assertEqual(expected_result,
                                 actual_result)
+            
+            # negative test case - too long
+            test_date_time ='1234567890'
+            test_string = 'The date is ' + test_date_time
+            expected_result = 'The date is 1234567890'
+            actual_result = anonymize_text(test_string, ['DATE_TIME'])
+            self.assertEqual(expected_result,
+                                actual_result)
