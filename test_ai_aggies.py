@@ -78,3 +78,22 @@ class TestTeamAIAggies(unittest.TestCase):
         self.assertEqual(expected_result,
                          actual_result)
 
+    def test_URL(self):
+        '''Test to make sure URL is valid'''
+        #Positive test case - URL is validated
+        test_URL = 'www.SaintBaroque.com'
+        test_string_URL = 'URL is: ' + test_URL
+        expected_result_URL = 'My URL is: <URL>'
+        result = anonymize_text(test_string_URL, ['URL'])
+        self.assertEqual(expected_result, result)
+
+        '''Test to make sure URL is valid'''
+        #Negative test case - URL is invalid 
+        test_URL = 'ww.SaintBaroque.gov'
+        test_string_URL = 'URL is: ' + test_URL
+        expected_result_URL = 'My URL is: <URL>'
+        result = anonymize_text(test_string_URL, ['URL'])
+        self.assertEqual(expected_result, result)
+
+        
+
