@@ -19,9 +19,22 @@ class TestTeam3(unittest.TestCase):
        
     def test_credit_card(self):
         """Test to make sure CREDIT_CARD is recognized"""
-        test_cc = '5105 1051 0510 5100'
+        #Positive Test Case 
+        sec1 = '5105'
+        sec2 = '1051'
+        sec3 = '0510'
+        sec4 = '5100'
+        test_cc = sec1 + sec2 + sec3 + sec4
         test_string = 'My credit card number is ' + test_cc
         expected_result = 'My credit card number is <CREDIT_CARD>'
         actual_result = anonymize_text(test_string, ['CREDIT_CARD'])
-        self.assertEqual(expected_result,
-                         actual_result) 
+        self.assertEqual(expected_result,actual_result) 
+
+        #Negative Test Case - Credit Card Number invalid
+        test_cc = '1232 8324 3847 3488' 
+        test_string = 'My credit card number is ' + test_cc
+        expected_result = 'My credit card number is 1232 8324 3847 3488'
+        actual_result = anonymize_text(test_string, ['CREDIT_CARD'])
+        self.assertEqual(expected_result,actual_result)
+
+    
