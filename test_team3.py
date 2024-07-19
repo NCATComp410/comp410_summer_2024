@@ -51,4 +51,11 @@ class TestTeam3(unittest.TestCase):
         actual_result = anonymize_text(test_string, ['CREDIT_CARD'])
         self.assertEqual(expected_result,actual_result)
 
+        #Negative Test Case - Credit Card Number contains non numerical characterss
+        test_cc = '1242 y348 jh28 2343' 
+        test_string = 'My credit card number is ' + test_cc
+        expected_result = 'My credit card number is 1242 y348 jh28 2343'
+        actual_result = anonymize_text(test_string, ['CREDIT_CARD'])
+        self.assertEqual(expected_result,actual_result)
+
     
