@@ -74,14 +74,7 @@ class TestTeamNull(unittest.TestCase):
         expected_result = 'My ABN is: 142 345 681 004'
         actual_result = anonymize_text(test_string, ['AU_ABN'])
         self.assertEqual(expected_result, actual_result)
-
-        #Positive Test Case 
-        test_abn = '51 824 753 556'
-        test_string = 'My ABN is: ' + test_abn
-        expected_result = 'My ABN is: <AU_ABN>'
-        actual_result = anonymize_text(test_string, ['AU_ABN'])
-        self.assertEqual(expected_result, actual_result)
-    
+        
         # Positive test case - valid ABN
         prefix = '51 '
         first_mid = '824 '
