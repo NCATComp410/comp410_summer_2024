@@ -60,3 +60,21 @@ class TestTeamAIAggies(unittest.TestCase):
         self.assertEqual(expected_result,
                          actual_result)
 
+    def test_US_BANK_NUMBER(self):
+        """test to make sure bank account is required"""
+        # Positive test case - Account length is greater than 8 and less than 17
+        test_account = "123456789"
+        test_string = "My account number is " + test_account
+        expected_result = "My account number is <US_BANK_NUMBER>"
+        actual_result = anonymize_text(test_string, ["US_BANK_NUMBER"])
+        self.assertEqual(expected_result,
+                         actual_result)
+
+        # Negative test case - Account length is less than 8
+        test_account = "1234567"
+        test_string = "My account number is " + test_account
+        expected_result = "My account number is 1234567"
+        actual_result = anonymize_text(test_string, ["US_BANK_NUMBER"])
+        self.assertEqual(expected_result,
+                         actual_result)
+
