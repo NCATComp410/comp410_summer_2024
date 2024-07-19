@@ -37,4 +37,41 @@ class TestTeam3(unittest.TestCase):
         actual_result = anonymize_text(test_string, ['IP_ADDRESS'])
         self.assertEqual(expected_result,
                             actual_result)
+        #Positive test case-Class A
+        test_classa= '10.5.6.7'
+        test_string = 'My IP class A Address is: ' + test_classa
+        expected_result = 'My IP class A Address is: <IP_ADDRESS>'
+        actual_result = anonymize_text(test_string, ['IP_ADDRESS'])
+        self.assertEqual(expected_result,
+                            actual_result)
+         #Positive test case-Class B
+        test_classb= '123.45.67.89'
+        test_string = 'My IP class A Address is: ' + test_classb
+        expected_result = 'My IP class A Address is: <IP_ADDRESS>'
+        actual_result = anonymize_text(test_string, ['IP_ADDRESS'])
+        self.assertEqual(expected_result,
+                            actual_result)
+#Positive test case-Class C
+        test_classc= '192.168.1.100'
+        test_string = 'My IP class C Address is: ' + test_classc
+        expected_result = 'My IP class C Address is: <IP_ADDRESS>'
+        actual_result = anonymize_text(test_string, ['IP_ADDRESS'])
+        self.assertEqual(expected_result,
+                            actual_result)
+        #Positive test case-Class D
+        test_classd= '224.0.0.1'
+        test_string = 'My IP class D Address is: ' + test_classd
+        expected_result = 'My IP class D Address is: <IP_ADDRESS>'
+        actual_result = anonymize_text(test_string, ['IP_ADDRESS'])
+        self.assertEqual(expected_result,
+                            actual_result)
+         #Positive test case-Class E
+        test_classe= '250.1.3.4'
+        test_string = 'My IP class E Address is: ' + test_classe
+        expected_result = 'My IP class E Address is: <IP_ADDRESS>'
+        actual_result = anonymize_text(test_string, ['IP_ADDRESS'])
+        self.assertEqual(expected_result,
+                         actual_result)
+        
+        
         
