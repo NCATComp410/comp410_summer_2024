@@ -77,4 +77,25 @@ class TestTeamAIAggies(unittest.TestCase):
         actual_result = anonymize_text(test_string, ["US_BANK_NUMBER"])
         self.assertEqual(expected_result,
                          actual_result)
+          
+    def test_phone_number(self):
+        """Test to make sure a PHONE_NUMBER is recognized"""
+        # Positve test case - Correct phone number format
+        prefix = '(336)'
+        mid = '-555-'
+        ending = '1234'
+        test_phonenum = prefix + mid + ending
+        test_string = 'My phone number is ' + test_phonenum
+        expected_result = 'My phone number is <PHONE_NUMBER>'
+        actual_result =  anonymize_text(test_string, ['PHONE_NUMBER'])
+        self.assertEqual(expected_result,
+                         actual_result)
+
+        # Negative test case - Area code is not present
+        test_phonenum = '5551234'
+        test_string = 'My phone number is ' + test_phonenum
+        expected_result = 'My phone number is 5551234'
+        actual_result =  anonymize_text(test_string, ['PHONE_NUMBER'])
+        self.assertEqual(expected_result,
+                         actual_result)
 
