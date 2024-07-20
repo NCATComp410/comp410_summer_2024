@@ -157,38 +157,38 @@ class TestTeam3(unittest.TestCase):
                          f"Expected: {expected_unchanged_result_2}, but got: {actual_unchanged_result_2}")
 
     def test_date_time(self):
-            """Test to make sure a DATE_TIME is recognized"""
-            # positive test case
-            prefix = '12'
-            mid ='-12-'
-            ending ='1234'
-            test_date_time = prefix + mid + ending
-            test_string = 'The date is ' + test_date_time
-            expected_result = 'The date is <DATE_TIME>'
-            actual_result = anonymize_text(test_string, ['DATE_TIME'])
-            self.assertEqual(expected_result,
-                                actual_result)
+        """Test to make sure a DATE_TIME is recognized"""
+        # positive test case
+        prefix = '12'
+        mid = '-12-'
+        ending = '1234'
+        test_date_time = prefix + mid + ending
+        test_string = 'The date is ' + test_date_time
+        expected_result = 'The date is <DATE_TIME>'
+        actual_result = anonymize_text(test_string, ['DATE_TIME'])
+        self.assertEqual(expected_result,
+                         actual_result)
 
-             # negative test case - DATE_TIME is not replaced
-            test_date_time ='12345678'
-            test_string = 'The date is ' + test_date_time
-            expected_result = 'The date is 12345678'
-            actual_result = anonymize_text(test_string, ['DATE_TIME'])
-            self.assertEqual(expected_result,
-                                actual_result)
+        # negative test case - DATE_TIME is not replaced
+        test_date_time = '12345678'
+        test_string = 'The date is ' + test_date_time
+        expected_result = 'The date is 12345678'
+        actual_result = anonymize_text(test_string, ['DATE_TIME'])
+        self.assertEqual(expected_result,
+                         actual_result)
 
-            # negative test case - too short
-            test_date_time ='1234567'
-            test_string = 'The date is ' + test_date_time
-            expected_result = 'The date is 1234567'
-            actual_result = anonymize_text(test_string, ['DATE_TIME'])
-            self.assertEqual(expected_result,
-                                actual_result)
+        # negative test case - too short
+        test_date_time = '1234567'
+        test_string = 'The date is ' + test_date_time
+        expected_result = 'The date is 1234567'
+        actual_result = anonymize_text(test_string, ['DATE_TIME'])
+        self.assertEqual(expected_result,
+                         actual_result)
 
-            # negative test case - too long
-            test_date_time ='1234567890'
-            test_string = 'The date is ' + test_date_time
-            expected_result = 'The date is 1234567890'
-            actual_result = anonymize_text(test_string, ['DATE_TIME'])
-            self.assertEqual(expected_result,
-                                actual_result)
+        # negative test case - too long
+        test_date_time = '1234567890'
+        test_string = 'The date is ' + test_date_time
+        expected_result = 'The date is 1234567890'
+        actual_result = anonymize_text(test_string, ['DATE_TIME'])
+        self.assertEqual(expected_result,
+                         actual_result)
