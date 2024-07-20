@@ -2,6 +2,7 @@
 import unittest
 from pii_scan import show_aggie_pride, anonymize_text
 
+
 class TestTeamAIAggies(unittest.TestCase):
     """Test the pii_scan module"""
     def test_show_aggie_pride(self):
@@ -115,5 +116,15 @@ class TestTeamAIAggies(unittest.TestCase):
         result = anonymize_text(test_string_URL, ['URL'])
         self.assertEqual(expected_result_URL, result)
 
-        
+    def test_medical_license(self):
+        # Test case where Medical License PII is present(positive)
+        test_med = "The doctor\'s medical license H93456781 is valid."
+        expected_result = 'The doctor\'s medical license <MEDICAL_LICENSE> is valid.'
+        result = anonymize_text(test_med, ['MEDICAL_LICENSE'])
+        self.assertEqual(expected_result, result)
 
+        # Test case where Medical License PII is not present
+        test_med = 'This doctor has all the necessary qualifications.'
+        expected_result = 'This doctor has all the necessary qualifications.'
+        result = anonymize_text(test_med, ['MEDICAL_LICENSE'])
+        self.assertEqual(expected_result, result)
