@@ -16,7 +16,78 @@ class TestTeamTravelingSalesmen(unittest.TestCase):
 
         self.assertEqual('My NRP is Unknown',
                          anonymize_text('My NRP is Unknown', ['NRP']))
+
+    def test_us_itin(self):
+        """Test to make sure a US_ITIN is recognized"""
+        # positive test case
+        prefix = '911'
+        mid = '-70-'
+        ending = '1234'
+        test_itin = prefix + mid + ending
+        test_string = 'My ITIN is ' + test_itin
+        expected_result = 'My ITIN is <US_ITIN>'
+        actual_result = anonymize_text(test_string, ['US_ITIN'])
+        self.assertEqual(expected_result,
+                         actual_result)
         
+        # negative test case - US_SSN is not replaced
+        #
+        # TODO not sure the intent of this test case
+        # 123456789 is not a valid SSN so would not be replaced
+        #
+        # test_itin = '123456789'
+        # test_string = 'My ITIN is ' + test_itin
+        # expected_result = 'My SSN is 123456789'
+        # actual_result = anonymize_text(test_string, ['US_SSN'])
+        # self.assertEqual(expected_result,
+        #                  actual_result)
+        
+        # negative test case - too short
+        test_itin = '12345678'
+        test_string = 'My ITIN is ' + test_itin
+        expected_result = 'My ITIN is 12345678'
+        actual_result = anonymize_text(test_string, ['US_ITIN'])
+        self.assertEqual(expected_result,
+                         actual_result)
+        
+        # negative test case - too long
+        test_itin = '1234567890'
+        test_string = 'My ITIN is ' + test_itin
+        expected_result = 'My ITIN is 1234567890'
+        actual_result = anonymize_text(test_string, ['US_ITIN'])
+        self.assertEqual(expected_result,
+                         actual_result)
+
+    def test_uk_nhs(self):
+
+        """Test to make sure NHS is recognized"""
+
+        # negative test case - too short
+        test_nhs = '123 456 789'
+        test_string = 'My nhs is ' + test_nhs
+        expected_result = 'My nhs is 123 456 789'
+        actual_result = anonymize_text(test_string, ['UK_NHS'])
+        self.assertEqual(expected_result,
+                         actual_result)
+
+        # negative test case - too long
+        test_nhs = '123 456 789123'
+        test_string = 'My nhs is ' + test_nhs
+        expected_result = 'My nhs is 123 456 789123'
+        actual_result = anonymize_text(test_string, ['UK_NHS'])
+        self.assertEqual(expected_result,
+                         actual_result)
+        # positive test case
+        prefix = '123 '
+        mid = '456 '
+        ending = '7829'
+        test_nhs = prefix + mid + ending
+        test_string = 'My nhs is ' + test_nhs
+        expected_result = 'My nhs is 123 456 7829'
+        actual_result = anonymize_text(test_string, ['UK_NHS'])
+        self.assertEqual(expected_result,
+                         actual_result)      
+
     def test_us_driver_license(self):
         """Test to make sure a US_DRIVER_LICENSE is recognized"""
         # positive test case
@@ -49,3 +120,50 @@ class TestTeamTravelingSalesmen(unittest.TestCase):
         expected_result = 'My driver license is <US_DRIVER_LICENSE>'  # Expect anonymized value
         actual_result = anonymize_text(test_string, ['US_DRIVER_LICENSE'])
         self.assertEqual(expected_result, actual_result)
+
+    def test_au_medicare(self):
+        """Test to make sure an AU_MEDICARE is recognized"""
+        # negative test case 
+        test_medicare = '3888 87568 0'
+        test_string = 'My medicare number is ' + test_medicare
+        expected_result = 'My medicare number is 3888 87568 0'
+        actual_result = anonymize_text(test_string, ['AU_MEDICARE'])
+        self.assertEqual(expected_result,
+                         actual_result)
+
+        # negative test case "Too short"
+        test_medicare = '3888 8768 0'
+        test_string = 'My medicare number is ' + test_medicare
+        expected_result = 'My medicare number is 3888 8768 0'
+        actual_result = anonymize_text(test_string, ['AU_MEDICARE'])
+        self.assertEqual(expected_result,
+                         actual_result)
+
+        # negative test case "Too short"
+        test_medicare = '38884 87868 0'
+        test_string = 'My medicare number is ' + test_medicare
+        expected_result = 'My medicare number is 38884 87868 0'
+        actual_result = anonymize_text(test_string, ['AU_MEDICARE'])
+        self.assertEqual(expected_result,
+                         actual_result)
+
+        # positive test case "medium"
+        start = '3111 '
+        middle = '32311 '
+        end = '1'
+        test_medicare = start + middle + end
+        test_string = 'My medicare number is ' + test_medicare
+        expected_result = 'My medicare number is <AU_MEDICARE>'
+        actual_result = anonymize_text(test_string, ['AU_MEDICARE'])
+        self.assertEqual(expected_result,
+                         actual_result)
+
+        # positive test case "low"
+        first = '21113'
+        last = '22311'
+        test_medicare = first + last
+        test_string = 'My medicare number is ' + test_medicare
+        expected_result = 'My medicare number is <AU_MEDICARE>'
+        actual_result = anonymize_text(test_string, ['AU_MEDICARE'])
+        self.assertEqual(expected_result,
+                         actual_result)
