@@ -73,6 +73,47 @@ class TestTeam3(unittest.TestCase):
         self.assertEqual(expected_result,
                          actual_result)
 
+    def test_credit_card(self):
+        """Test to make sure CREDIT_CARD is recognized"""
+        # Positive Test Case
+        sec1 = '5105'
+        sec2 = '1051'
+        sec3 = '0510'
+        sec4 = '5100'
+        test_cc = sec1 + sec2 + sec3 + sec4
+        test_string = 'My credit card number is ' + test_cc
+        expected_result = 'My credit card number is <CREDIT_CARD>'
+        actual_result = anonymize_text(test_string, ['CREDIT_CARD'])
+        self.assertEqual(expected_result, actual_result)
+
+        # Negative Test Case - Credit Card Number invalid
+        test_cc = '1232 8324 3847 3488'
+        test_string = 'My credit card number is ' + test_cc
+        expected_result = 'My credit card number is 1232 8324 3847 3488'
+        actual_result = anonymize_text(test_string, ['CREDIT_CARD'])
+        self.assertEqual(expected_result, actual_result)
+
+        # Negative Test Case - Credit Card Number too short
+        test_cc = '1232 8324'
+        test_string = 'My credit card number is ' + test_cc
+        expected_result = 'My credit card number is 1232 8324'
+        actual_result = anonymize_text(test_string, ['CREDIT_CARD'])
+        self.assertEqual(expected_result, actual_result)
+
+        # Negative Test Case - Credit Card Number too long: beyond 19 digits
+        test_cc = '1232 8324 3453 2353 6575 2344'
+        test_string = 'My credit card number is ' + test_cc
+        expected_result = 'My credit card number is 1232 8324 3453 2353 6575 2344'
+        actual_result = anonymize_text(test_string, ['CREDIT_CARD'])
+        self.assertEqual(expected_result, actual_result)
+
+        # Negative Test Case - Credit Card Number contains non numerical characterss
+        test_cc = '1242 y348 jh28 2343'
+        test_string = 'My credit card number is ' + test_cc
+        expected_result = 'My credit card number is 1242 y348 jh28 2343'
+        actual_result = anonymize_text(test_string, ['CREDIT_CARD'])
+        self.assertEqual(expected_result, actual_result)
+
     def test_iban_code(self):
         """Test to make sure a IBAN_CODE is recognizable"""
         # positive test case
