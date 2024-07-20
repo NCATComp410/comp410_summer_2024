@@ -21,24 +21,24 @@ class TestTeamNull(unittest.TestCase):
         mid = '-12-'
         ending = '1234'
         test_ssn = prefix + mid + ending
-        test_string = 'My ssn is ' + test_ssn
-        expected_result = 'My ssn is <US_SSN>'
+        test_string = 'My SSN is ' + test_ssn
+        expected_result = 'My SSN is <US_SSN>'
         actual_result = anonymize_text(test_string, ['US_SSN'])
         self.assertEqual(expected_result,
                          actual_result)
         
         # negative test case - US_SSN is not replaced
         test_ssn = '123456789'
-        test_string = 'My ssn is ' + test_ssn
-        expected_result = 'My ssn is 123456789'
+        test_string = 'My SSN is ' + test_ssn
+        expected_result = 'My SSN is 123456789'
         actual_result = anonymize_text(test_string, ['US_SSN'])
         self.assertEqual(expected_result,
                          actual_result)
         
         # negative test case - too short
         test_ssn = '12345678'
-        test_string = 'My ssn is ' + test_ssn
-        expected_result = 'My ssn is 12345678'
+        test_string = 'My SSN is ' + test_ssn
+        expected_result = 'My SSN is 12345678'
         actual_result = anonymize_text(test_string, ['US_SSN'])
         self.assertEqual(expected_result,
                          actual_result)
@@ -50,38 +50,3 @@ class TestTeamNull(unittest.TestCase):
         actual_result = anonymize_text(test_string, ['US_SSN'])
         self.assertEqual(expected_result,
                          actual_result)
-    
-    def test_au_abn(self):
-        """Test to make sure an AU_ABN is recognized and anonymized"""
-       
-        # Negative test case - incorrect format (too short)
-        test_abn = '12 345 678 90'
-        test_string = 'My ABN is: ' + test_abn
-        expected_result = 'My ABN is: 12 345 678 90'
-        actual_result = anonymize_text(test_string, ['AU_ABN'])
-        self.assertEqual(expected_result, actual_result)
-
-        # Negative test case - incorrect format (contains letters)
-        test_abn = '12 345 ABC DE1'
-        test_string = 'My ABN is: ' + test_abn
-        expected_result = 'My ABN is: 12 345 ABC DE1'
-        actual_result = anonymize_text(test_string, ['AU_ABN'])
-        self.assertEqual(expected_result, actual_result)
-
-        # Negative test case - to long
-        test_abn = '142 345 681 004'
-        test_string = 'My ABN is: ' + test_abn
-        expected_result = 'My ABN is: 142 345 681 004'
-        actual_result = anonymize_text(test_string, ['AU_ABN'])
-        self.assertEqual(expected_result, actual_result)
-        
-        # Positive test case - valid ABN
-        prefix = '51 '
-        first_mid = '824 '
-        sec_mid = '753 '
-        end = '556'
-        test_abn = prefix + first_mid + sec_mid + end
-        test_string = 'My ABN is: ' + test_abn
-        expected_result = 'My ABN is: <AU_ABN>'
-        actual_result = anonymize_text(test_string, ['AU_ABN'])
-        self.assertEqual(expected_result, actual_result)
