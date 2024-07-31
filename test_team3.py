@@ -196,3 +196,36 @@ class TestTeam3(unittest.TestCase):
         actual_unchanged_result_2 = anonymize_text(non_crypto_text_2, ['CRYPTO'])
         self.assertEqual(expected_unchanged_result_2, actual_unchanged_result_2,
                          f"Expected: {expected_unchanged_result_2}, but got: {actual_unchanged_result_2}")
+
+    def test_email(self):
+        # Positive test case 1: Email address should be anonymized
+        test_email_1 = 'support@example.com'
+        expected_anonymized_result_1 = 'My email address is <EMAIL_ADDRESS>'
+        actual_anonymized_result_1 = anonymize_text(f'My email address is {test_email_1}', ['EMAIL_ADDRESS'])
+        self.assertEqual(expected_anonymized_result_1, actual_anonymized_result_1,
+                         f"Expected: {expected_anonymized_result_1}, but got: {actual_anonymized_result_1}")
+
+        # Positive test case 2: Another email address should be anonymized
+        test_email_2 = 'contact@company.org'
+        expected_anonymized_result_2 = 'My email address is <EMAIL_ADDRESS>'
+        actual_anonymized_result_2 = anonymize_text(f'My email address is {test_email_2}', ['EMAIL_ADDRESS'])
+        self.assertEqual(expected_anonymized_result_2, actual_anonymized_result_2,
+                         f"Expected: {expected_anonymized_result_2}, but got: {actual_anonymized_result_2}")
+
+        # Negative test case 1: No email information, text should remain unchanged
+        non_email_text_1 = 'No email address mentioned here.'
+        expected_unchanged_result_1 = 'No email address mentioned here.'
+        actual_unchanged_result_1 = anonymize_text(non_email_text_1, ['EMAIL_ADDRESS'])
+        self.assertEqual(expected_unchanged_result_1, actual_unchanged_result_1,
+                         f"Expected: {expected_unchanged_result_1}, but got: {actual_unchanged_result_1}")
+
+        # Negative test case 2: Another non-email text should also remain unchanged
+        non_email_text_2 = 'This text does not contain any email address.'
+        expected_unchanged_result_2 = 'This text does not contain any email address.'
+        actual_unchanged_result_2 = anonymize_text(non_email_text_2, ['EMAIL_ADDRESS'])
+        self.assertEqual(expected_unchanged_result_2, actual_unchanged_result_2,
+                         f"Expected: {expected_unchanged_result_2}, but got: {actual_unchanged_result_2}")
+
+
+if __name__ == '__main__':
+    unittest.main()
